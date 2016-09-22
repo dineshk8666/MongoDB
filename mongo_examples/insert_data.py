@@ -1,6 +1,11 @@
 from datetime import datetime
 from pymongo import MongoClient
-client = MongoClient(host="localhost", port=27017)
+
+try:
+    client = MongoClient(host="localhost", port=27017)
+    print "Connected Successfully"
+except pymongo.errors.ConnectionFailure, e:
+    print "Could not connect to MongoDB: %s" % e
 
 # Use existing database (e.g: resturants) or create if not exist
 db = client.resturants
