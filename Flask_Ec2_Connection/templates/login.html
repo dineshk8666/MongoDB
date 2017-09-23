@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+
+    <script src="../static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    {#    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">#}
+    <link href="../static/signup.css" rel="stylesheet">
+
+
+    <script type="text/javascript">
+        function validate() {
+             name =id_username.value;
+             password =id_password.value;
+
+            if (name == null || name == "") {
+                alert("Name can't be blank");
+                return false;
+            } else if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false;
+            }
+        }
+
+        $(function () {
+            $('#btnLogin').click(function () {
+                $.ajax({
+                    url: '/login',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+
+        <h3 class="text-muted">Login Screen</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Login Page</h1>
+        <form class="form-signin">
+            <label for="id_username" class="sr-only">Name</label>
+            <input type="name" name="id_username" id="id_username" class="form-control" placeholder="Name" required
+                   autofocus>
+            <label for="id_password" class="sr-only">Password</label>
+            <input type="password" name="id_password" id="id_password" class="form-control" placeholder="Password"
+                   required>
+
+            <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button" onclick="validate()">Login
+            </button>
+
+            <a class="btn btn-lg btn-primary btn-block" href="showSignUp" role="button">Sign up</a>
+
+        </form>
+    </div>
+
+
+    <footer class="footer">
+    </footer>
+
+</div>
+
+</body>
+</html>

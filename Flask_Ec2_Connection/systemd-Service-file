@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve LoginFlask Project
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/LoginFlask
+Environment="PATH=/home/ubuntu/LoginFlask/LoginFlaskenv/bin"
+ExecStart=/usr/local/bin/uwsgi --ini LoginFlask.ini
+
+[Install]
+WantedBy=multi-user.target
