@@ -11,11 +11,12 @@ app.config['MONGO_DBNAME'] = 'restdb'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/restdb'
 
 mongo = PyMongo(app)
+db = mongo.db
 
 
 @app.route('/star', methods=['GET'])
 def get_all_stars():
-    star = mongo.db.stars
+    star = db.stars
     output = []
     for s in star.find():
         output.append({'name': s['name'], 'distance': s['distance']})
@@ -23,7 +24,7 @@ def get_all_stars():
 
 @app.route('/star/', methods=['GET'])
 def get_one_star(name):
-    star = mongo.db.stars
+    star = db.stars
     s = star.find_one({'name' : name})
     if s:
         output = {'name' : s['name'], 'distance' : s['distance']}
@@ -33,7 +34,7 @@ def get_one_star(name):
 
 @app.route('/star', methods=['POST'])
 def add_star():
-    star = mongo.db.stars
+    star = db.stars
     name = request.json['name']
     distance = request.json['distance']
     star_id = star.insert({'name': name, 'distance': distance})
